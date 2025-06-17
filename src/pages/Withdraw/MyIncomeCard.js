@@ -45,7 +45,7 @@ const MyIncomeCard = () => {
     display: 'flex',
     justifyContent: 'space-around',
     margin: '8px 2px',
-    borderBottom:'0.02rem dashed rgb(205 172 54)'
+    // borderBottom:'0.02rem dashed rgb(205 172 54)'
   };
 
   const labelStyle = {
@@ -83,7 +83,6 @@ const MyIncomeCard = () => {
         </div>
       </div>
 
-      <div style={dividerStyle}></div>
 
       <div style={sectionStyle}>
         <div>
@@ -96,7 +95,7 @@ const MyIncomeCard = () => {
         </div>
       </div>
 
-      <div style={dividerStyle}></div>
+      {/* <div style={dividerStyle}></div>
 
       <div style={sectionStyle}>
         <div>
@@ -105,9 +104,9 @@ const MyIncomeCard = () => {
         </div>
         <div>
           <div style={labelStyle}>Today's Community Income</div>
-          <div style={valueStyle}>${incomes.totalTeamIncome ? incomes.totalTeamIncome : 0}</div>
+          <div style={valueStyle}>${incomes.todayTeamIncome ? incomes.todayTeamIncome : 0}</div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

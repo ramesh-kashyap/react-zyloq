@@ -90,28 +90,28 @@ const Notice = () => {
 
     const tasks = [
         {
-            title: 'Invite First Recharge Task 01',
+            title: 'Inviting 1 valid user',
             description:
-                'Invite 5 Direct Subordinates Who Make Their First Recharge Of Over 100USDT: Receive A Reward Of 58U.',
-            reward: 58,
+                'You invite 1 person, and they deposit $100 into their Zylo AI account.You receive $6 as a direct bonus',
+            reward: 6,
             progress: 0,
-            total: 5,
+            total: 1,
         },
         {
-            title: 'Invite First Recharge Task 02',
+            title: 'Inviting 2 valid user',
             description:
-                'Invite 20 Direct Referrals Who Make Their First Recharge Of Over $100: Receive A $225 Reward.',
-            reward: 100,
+                'You invite 2 person, and they deposit $100 into their Zylo AI account.You receive $15 as a direct bonus',
+            reward: 15,
             progress: 0,
-            total: 20,
+            total: 2,
         },
         {
-            title: 'Invite First Recharge Task 03',
+            title: 'Inviting 3 valid user',
             description:
-                'Invite 50 Direct Referrals Who Make Their First Recharge Of Over $100: Receive A $580 Reward.',
-            reward: 580,
+                'You invite 3 person, and they deposit $100 into their Zylo AI account.You receive $30 as a direct bonus',
+            reward: 30,
             progress: 0,
-            total: 50,
+            total: 3,
         },
     ];
 

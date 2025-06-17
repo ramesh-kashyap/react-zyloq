@@ -108,7 +108,7 @@ export default function Footer() {
                   <img
                          src={`/static/tabbar/${currentPath === '/Team' ? 'team_active' : 'team'}.png`}
                       style={{
-                        filter: currentPath === '/assets' ? activeFilter : 'brightness(1) invert(0)',
+                        filter: currentPath === '/Team' ? activeFilter : 'brightness(1) invert(0)',
                       }}
                       alt="Assets"
                     />
@@ -118,7 +118,7 @@ export default function Footer() {
                   <div  className="uni-tabbar__label"
                     style={{
                       color:
-                        currentPath === '/assets' ? '#ffc600' : '#fff',
+                        currentPath === '/Team' ? '#ffc600' : '#fff',
                       fontSize: '13px',
                       lineHeight: 'normal',
                       marginTop: '3px',

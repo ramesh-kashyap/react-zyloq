@@ -178,7 +178,16 @@ const UserProfileCard = () => {
           )}
           <span onClick={() => {
             navigator.clipboard.writeText(userDetails?.username || "");
-            toast.success("Username copied!");
+             toast.success("Username copied", {
+          className: 'custom-toast',
+         icon: '✔️',
+          position: 'top-center',
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeButton: false,
+          draggable: false,
+          pauseOnHover: false
+        });
           }}
             title="Copy Username"> <img  style={{width:'18px'}} src="/static/img/icons8-copy-48.png"/></span>
 
@@ -200,7 +209,16 @@ const UserProfileCard = () => {
             
             onClick={() => {
               navigator.clipboard.writeText(userDetails?.sponsor || "");
-              toast.success("Sponsor code copied!");
+               toast.success("Invitation code copied", {
+                className: 'custom-toast',
+              icon: '✔️',
+                position: 'top-center',
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeButton: false,
+                draggable: false,
+                pauseOnHover: false
+              });
             }}
             title="Copy Sponsor Code"
           > <img  style={{width:'18px'}} src="/static/img/icons8-copy-48.png"/></span>

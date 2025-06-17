@@ -14,11 +14,12 @@ const Team = () => {
   };
 
 
-
+  const [incomes, setIncomes] = useState([]);
   const [income, setIncome] = useState([]);
   const [error, setError] = useState("");
   useEffect(() => {
     fetchteam();
+    IncomeInfo();
   }, []);
 
 
@@ -33,6 +34,20 @@ const Team = () => {
       setError(err.response?.data?.error || "Error fetching income");
     }
   };
+
+
+   const IncomeInfo = async () => {
+          try {
+             const response = await Api.get("/incomeInfo");
+             if (response.data) {
+                setIncomes(response.data.data);
+             }
+          } catch (error) {
+             console.error(error);
+             setError(error);
+          }
+       }
+
   const cardStyle = {
     background: 'linear-gradient(135deg, rgb(78, 78, 81), rgb(27, 27, 30))',
     borderRadius: '16px',
@@ -380,11 +395,11 @@ const [hoveredIndex, setHoveredIndex] = useState(null);
                   <div style={rowStyle}>
                     <div style={colStyle}>
                       <div style={labelStyle}>Total Income</div>
-                      <div style={valueStyle}>5.16</div>
+                      <div style={valueStyle}>${incomes.totalIncome ? incomes.totalIncome : 0}</div>
                     </div>
                     <div style={colStyle}>
                       <div style={labelStyle}>Today's Earnings</div>
-                      <div style={valueStyle}>0</div>
+                      <div style={valueStyle}>${incomes.todayTotalIncome ? incomes.todayTotalIncome : 0}</div>
                     </div>
                   </div>
 
@@ -392,16 +407,16 @@ const [hoveredIndex, setHoveredIndex] = useState(null);
 
                   <div style={rowStyle}>
                     <div style={colStyle}>
-                      <div style={labelStyle}>Cumulative Community Income</div>
-                      <div style={valueStyle}>0</div>
+                      <div style={labelStyle}> Community Income</div>
+                      <div style={valueStyle}>${incomes.teamIncome ? incomes.teamIncome : 0}</div>
                     </div>
                     <div style={colStyle}>
                       <div style={labelStyle}>Today's Community Income</div>
-                      <div style={valueStyle}>0</div>
+                      <div style={valueStyle}>${incomes.todayTeamIncome ? incomes.todayTeamIncome : 0}</div>
                     </div>
                   </div>
 
-                  <button style={buttonStyle}>Revenue Record</button>
+                  <button  onClick={() => navigate('/bill')} style={buttonStyle}>Revenue Record</button>
                 </div>
 
                 <div style={wrapperStyle}>
@@ -419,13 +434,13 @@ const [hoveredIndex, setHoveredIndex] = useState(null);
                   <div style={rowStyleTeam}>
                     <div style={columnStyle}>
                       <div >👥 Number Of People In The Community</div>
-                      <div style={valueStyleTeam}>3</div>
-                      <div style={smallTextStyle}>Today's New  <span style={{ color: 'rgb(255, 212, 41)' }}>+0</span></div>
+                      <div style={valueStyleTeam}>{total}</div>
+                      <div style={smallTextStyle}>Today's New  <span style={{ color: 'rgb(255, 212, 41)' }}>+{income?.data?.todaysUser}</span></div>
                     </div>
                     <div style={columnStyle}>
                       <div >💰 Today's Earnings</div>
-                      <div style={valueStyleTeam}>1.5885375</div>
-                      <div style={smallTextStyle}>Today's New <span style={{ color: 'rgb(255, 212, 41)' }}>+0</span> </div>
+                      <div style={valueStyleTeam}>${incomes.teamIncome ? incomes.teamIncome : 0}</div>
+                      <div style={smallTextStyle}>Today's New <span style={{ color: 'rgb(255, 212, 41)' }}>+{incomes.todayTeamIncome ? incomes.todayTeamIncome : 0}</span> </div>
                     </div>
                   </div>
 
@@ -485,7 +500,7 @@ const [hoveredIndex, setHoveredIndex] = useState(null);
                     <div style={inviteText}>
                       <div style={inviteTitle}>Invite Friends</div>
                       <div style={inviteSub}>Invite Friends And Earn Coins Together</div>
-                      <div style={inviteLink}>Go To Invite →</div>
+                      <div style={inviteLink} onClick={() => navigate('/Refer')}  >Go To Invite →</div>
                     </div>
                     <img
                       src="/static/img/referr.png"

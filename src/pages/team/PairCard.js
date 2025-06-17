@@ -26,6 +26,7 @@ const PairCard = () => {
     maxWidth: '400px',
     border: '1px solid #2a2a2a',
     boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+    marginTop:'10px'
   };
 
   const headerStyle = {

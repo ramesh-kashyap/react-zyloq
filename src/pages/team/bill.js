@@ -4,7 +4,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import Api from "../../Requests/Api";
 import { Toaster, toast } from 'react-hot-toast';
 const Notice = () => {
-    const [Notice, setContract] = useState([]);
+    const [Contract, setContract] = useState([]);
         const [error, setError] = useState("");
         useEffect(() => {
             fetchcontract();
@@ -15,7 +15,7 @@ const Notice = () => {
                 const response = await Api.get("/fetchcontract");
                 if (response.data && response.data.success) {
                     console.log(response.data);
-                    setContract(response.data.notices);
+                    setContract(response.data.fetchcontract);
                 } 
             } catch (err) {
                 setError(err.response?.data?.error || "Error fetching history");
@@ -138,28 +138,27 @@ const Notice = () => {
                            </div>
                            
 
-                                {transactions.map((item, index) => (
+                                {Contract.map((item, index) => (
                                                 <uni-view data-v-248ca5b8="" class="item" >
                                                     <uni-view data-v-248ca5b8="" class="first">
                                                         <uni-view data-v-248ca5b8="" class="left">
-                                                         hell
+                                                         Buy : {item.c_buy}
                                                         </uni-view>
                                                         <uni-view data-v-248ca5b8=""
                                                             class="right" style={{ color: "#fff",fontWeight:"900"}}>
-                                                            hello
+                                                            Sell :{item.c_sell}
                                                         </uni-view>
                                                     </uni-view>
 
                                                     <uni-view data-v-248ca5b8="" class="layer">
-                                                        <uni-view data-v-248ca5b8="" class="title">Remarks</uni-view>
-                                                        <uni-view data-v-248ca5b8="" class="value">
-                                                            {item.remarks || item.source || '—'}
+                                                        <uni-view data-v-248ca5b8="" class="title">Profit</uni-view>
+                                                        <uni-view data-v-248ca5b8="" class="value" style={{ color: "#ffc600",fontWeight:"900"}}>
+                                                            {item.profit || item.c_sell || '—'}
                                                         </uni-view>
                                                     </uni-view>
                                                 </uni-view>
                                                 
                                             ))
-
                                         }
                             </uni-view>
                         </uni-page-body>

@@ -176,11 +176,11 @@ const UserProfileCard = () => {
           ) : (
             <span style={codeStyle}>{userDetails?.username}</span>
           )}
-          <span style={copyBoxStyle} onClick={() => {
-    navigator.clipboard.writeText(userDetails?.username || "");
-    toast.success("Username copied!");
-  }}
-  title="Copy Username"></span>
+          <span onClick={() => {
+            navigator.clipboard.writeText(userDetails?.username || "");
+            toast.success("Username copied!");
+          }}
+            title="Copy Username"> <img  style={{width:'18px'}} src="/static/img/icons8-copy-48.png"/></span>
 
           <span style={{ marginLeft: "16px", ...labelStyle }}>
             Invitation Code:
@@ -197,13 +197,13 @@ const UserProfileCard = () => {
             <span style={codeStyle}>{userDetails?.sponsor}</span>
           )}
           <span
-  style={{ ...copyBoxStyle, cursor: "pointer" }}
-  onClick={() => {
-    navigator.clipboard.writeText(userDetails?.sponsor || "");
-    toast.success("Sponsor code copied!");
-  }}
-  title="Copy Sponsor Code"
-></span>
+            
+            onClick={() => {
+              navigator.clipboard.writeText(userDetails?.sponsor || "");
+              toast.success("Sponsor code copied!");
+            }}
+            title="Copy Sponsor Code"
+          > <img  style={{width:'18px'}} src="/static/img/icons8-copy-48.png"/></span>
         </div>
 
         {isEditing && (

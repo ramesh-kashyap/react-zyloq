@@ -12,6 +12,9 @@ const Server = () => {
    const [activeTab, setActiveTab] = useState("running");
    const [servers, setQualitys] = useState([])
    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+   const [Contract, setContract] = useState([]);
+
+   const [error, setError] = useState("");
    const [slides, setSlides] = useState([
       {
          title: "VIP 1",
@@ -92,6 +95,7 @@ const Server = () => {
 
    useEffect(() => {
       fetchvip();
+      fetchcontract();
    }, [])
    const handleBuyClick = async (slideData) => {
       try {
@@ -109,6 +113,18 @@ const Server = () => {
       } catch (error) {
          toast.error("Error making purchase:", error);
          // console.error("Error making purchase:", error);
+      }
+   };
+
+   const fetchcontract = async () => {
+      try {
+         const response = await Api.get("/fetchcontract");
+         if (response.data && response.data.success) {
+            console.log(response.data);
+            setContract(response.data.fetchcontract?.slice(0, 10));
+         }
+      } catch (err) {
+         setError(err.response?.data?.error || "Error fetching history");
       }
    };
 
@@ -233,11 +249,11 @@ const Server = () => {
 
    const greenDotStyle = {
       width: '8px',
-      height: '8px',
-      backgroundColor: 'rgb(225 194 87)',
-      borderRadius: '50%',
-      display: 'inline-block',
-      marginRight: '6px',
+    height: '8px',
+    backgroundColor: '#569d35',
+    borderRadius: '50%',
+    display: 'inline-block',
+    marginRight: '6px',
    };
 
    const dividerStyle2 = {
@@ -254,7 +270,7 @@ const Server = () => {
 
    const labelStyle2 = {
       marginBottom: '4px',
-      fontSize:'13px'
+      fontSize: '13px'
    };
 
    const valueStyle2 = {
@@ -265,41 +281,42 @@ const Server = () => {
 
    const incomeStyle = {
       fontWeight: 'bold',
-      fontSize: '15px',
-      color: 'rgb(225 194 87)',
+    fontSize: '15px',
+    color: '#569d35',
+    textAlign:'center'
    };
 
-     const wrapperStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-   //  backgroundColor: '#121212',
-    padding: '6px 4px',
-    fontFamily: 'Arial, sans-serif',
-    color: '#fff',
-  };
+   const wrapperStyle = {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      //  backgroundColor: '#121212',
+      padding: '6px 4px',
+      fontFamily: 'Arial, sans-serif',
+      color: '#fff',
+   };
 
-  const titleStyle = {
-    fontSize: '15px',
-    fontWeight: 'bold',
-  };
+   const titleStyle = {
+      fontSize: '15px',
+      fontWeight: 'bold',
+   };
 
-  const buttonStyle = {
-    border: '1px solid #333',
-    borderRadius: '20px',
-    padding: '6px 14px',
-    fontSize: '14px',
-    backgroundColor: 'transparent',
-    color: '#fff',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-  };
+   const buttonStyle = {
+      border: '1px solid #333',
+      borderRadius: '20px',
+      padding: '6px 14px',
+      fontSize: '14px',
+      backgroundColor: 'transparent',
+      color: '#fff',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+   };
 
-  const arrowStyle = {
-    marginLeft: '6px',
-    fontSize: '16px',
-  };
+   const arrowStyle = {
+      marginLeft: '6px',
+      fontSize: '16px',
+   };
 
 
 
@@ -381,43 +398,47 @@ const Server = () => {
                         <PairCard />
 
 
-                  <div style={wrapperStyle}>
-                        <div style={titleStyle}>My Quantify</div>
-                        <button style={buttonStyle}>
-                           <Link to="/bill" style={{color:'#fff',textDecoration:'none'}}>
-                        Bill List <span style={arrowStyle}>›</span>
-                        </Link>
-                        </button>
-                     </div>
-
-
-                        <div style={cardStyle2}>
-                           {/* Top Row */}
-                           <div style={topRowStyle}>
-                              <span>04/04/2025 01:22:20</span>
-                              <span>
-                                 <span style={greenDotStyle}></span>Completed
-                              </span>
-                           </div>
-
-                           <div style={dividerStyle2}></div>
-
-                           {/* Detail Grid */}
-                           <div style={gridStyle}>
-                              <div>
-                                 <div style={labelStyle2}>Trading Pair</div>
-                                 <div style={valueStyle2}>ETH-BNB</div>
-                              </div>
-                              <div>
-                                 <div style={labelStyle2}>Transaction Amount</div>
-                                 <div style={valueStyle2}>198.09 USDT</div>
-                              </div>
-                              <div>
-                                 <div style={labelStyle2}>Amount Of Income</div>
-                                 <div style={incomeStyle}>2.72 USDT</div>
-                              </div>
-                           </div>
+                        <div style={wrapperStyle}>
+                           <div style={titleStyle}>My Quantify</div>
+                           <button style={buttonStyle}>
+                              <Link to="/bill" style={{ color: '#fff', textDecoration: 'none' }}>
+                                 Bill List <span style={arrowStyle}>›</span>
+                              </Link>
+                           </button>
                         </div>
+
+
+                        {Contract.map((item, index) => (
+                           <div style={cardStyle2}>
+                              {/* Top Row */}
+                              <div style={topRowStyle}>
+                                 <span><span>{new Date(item.created_at).toLocaleString()}</span>
+                                 </span>
+                                 <span>
+                                    <span style={greenDotStyle}></span>{item.c_status === -1 ? 'Completed' : item.c_status === 1 ? 'Completed' : 'Unknown'}
+                                 </span>
+                              </div>
+
+                              <div style={dividerStyle2}></div>
+
+                              {/* Detail Grid */}
+                              <div style={gridStyle}>
+                                 <div>
+                                    <div style={labelStyle2}>Trading Pair</div>
+                                    <div style={valueStyle2}>USDT-{item.c_name.toUpperCase()}</div>
+                                 </div>
+                                 <div>
+                                    <div style={labelStyle2}>Position</div>
+                                    <div style={valueStyle2}>{item.trade}</div>
+                                 </div>
+                                 <div>
+                                    <div style={labelStyle2}>Amount Of Income</div>
+                                    <div style={incomeStyle}>${item.profit}</div>
+                                 </div>
+                              </div>
+                           </div>
+                        ))
+                        }
                      </uni-view>
                   </uni-page-body>
                </uni-page-wrapper>

@@ -108,13 +108,14 @@ const Notice = () => {
                                         <uni-view data-v-35b9a113="" data-v-c62a6474="" class="uni-col uni-col-6" style={{paddingLeft: '0px',paddingright: '0px'}}></uni-view>
                                     </uni-view>
                                 </uni-view>
-                              
+                              {Contract.map((item, index) => (
                                 <div style={cardStyle2}>
                               {/* Top Row */}
                               <div style={topRowStyle}>
-                              <span>04/04/2025 01:22:20</span>
+                              <span><span>{new Date(item.created_at).toLocaleString()}</span>
+</span>
                               <span>
-                                 <span style={greenDotStyle}></span>Completed
+                                 <span style={greenDotStyle}></span>{item.c_status === -1 ? 'Pending' : item.c_status === 1 ? 'Complete' : 'Unknown'}
                               </span>
                               </div>
 
@@ -124,21 +125,22 @@ const Notice = () => {
                               <div style={gridStyle}>
                               <div>
                                  <div style={labelStyle2}>Trading Pair</div>
-                                 <div style={valueStyle2}>ETH-BNB</div>
+                                 <div style={valueStyle2}>USDT-{item.c_name.toUpperCase()}</div>
                               </div>
                               <div>
                                  <div style={labelStyle2}>Transaction Amount</div>
-                                 <div style={valueStyle2}>198.09 USDT</div>
+                                 <div style={valueStyle2}>${item.c_buy}</div>
                               </div>
                               <div>
                                  <div style={labelStyle2}>Amount Of Income</div>
-                                 <div style={incomeStyle}>2.72 USDT</div>
+                                 <div style={incomeStyle}>{item.profit}</div>
                               </div>
                               </div>
                            </div>
-                           
+                           ))
+                                        }
 
-                                {Contract.map((item, index) => (
+                                {/* {Contract.map((item, index) => (
                                                 <uni-view data-v-248ca5b8="" class="item" >
                                                     <uni-view data-v-248ca5b8="" class="first">
                                                         <uni-view data-v-248ca5b8="" class="left">
@@ -159,7 +161,7 @@ const Notice = () => {
                                                 </uni-view>
                                                 
                                             ))
-                                        }
+                                        } */}
                             </uni-view>
                         </uni-page-body>
                     </uni-page-wrapper>

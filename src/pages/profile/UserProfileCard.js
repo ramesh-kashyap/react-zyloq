@@ -180,7 +180,7 @@ const UserProfileCard = () => {
     navigator.clipboard.writeText(userDetails?.username || "");
     toast.success("Username copied!");
   }}
-  title="Copy Username"></span>
+  title="Copy Username"><img src="/static/img/icons8-copy-96.png" alt="copy" style={{width:15}}/></span>
 
           <span style={{ marginLeft: "16px", ...labelStyle }}>
             Invitation Code:
@@ -203,7 +203,7 @@ const UserProfileCard = () => {
     toast.success("Sponsor code copied!");
   }}
   title="Copy Sponsor Code"
-></span>
+><img src="/static/img/icons8-copy-96.png" alt="copy" style={{width:15}}/></span>
         </div>
 
         {isEditing && (

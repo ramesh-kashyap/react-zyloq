@@ -177,15 +177,7 @@ const NodeDetails = () => {
                 </uni-view>
                 </Link>
 
-                {/* <Link to="/payment-password" style={{ textDecorationLine: 'none' }}>
-                <uni-view data-v-3dcfa33c="" class="invite-box">
-                  <img data-v-3dcfa33c="" src="/static/img/153.png" alt="" />
-                  <uni-view data-v-3dcfa33c="" class="invite">
-                    <uni-view data-v-3dcfa33c="" class="title">Payment Password</uni-view>
-                    <uni-view data-v-3dcfa33c="" class="text">Manage or Update Your Payment Passowrd</uni-view>
-                  </uni-view>
-                </uni-view>
-                </Link> */}
+            
 
                 {/* <Link to="/payment-password" style={{ textDecorationLine: 'none' }}> */}
                 <uni-view data-v-3dcfa33c="" class="invite-box" onClick={handleOpenTelegram} >
@@ -196,6 +188,17 @@ const NodeDetails = () => {
                   </uni-view>
                 </uni-view>
                 {/* </Link> */}
+
+                 <Link to="/payment-password" style={{ textDecorationLine: 'none' }}>
+                <uni-view data-v-3dcfa33c="" class="invite-box">
+                  <img data-v-3dcfa33c="" src="/static/img/153.png" alt="" />
+                  <uni-view data-v-3dcfa33c="" class="invite">
+                    <uni-view data-v-3dcfa33c="" class="title">Payment Password</uni-view>
+                    <uni-view data-v-3dcfa33c="" class="text">Manage or Update Your Payment Passowrd</uni-view>
+                  </uni-view>
+                </uni-view>
+                </Link>
+                
 
                 {/* <uni-view data-v-3dcfa33c="" class="invite-box">
                   <img data-v-3dcfa33c="" src="/static/img/chatbox.png" alt="" />

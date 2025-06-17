@@ -138,29 +138,7 @@ const Notice = () => {
                            </div>
                            
 
-                                {transactions.map((item, index) => (
-                                                <uni-view data-v-248ca5b8="" class="item" >
-                                                    <uni-view data-v-248ca5b8="" class="first">
-                                                        <uni-view data-v-248ca5b8="" class="left">
-                                                         hell
-                                                        </uni-view>
-                                                        <uni-view data-v-248ca5b8=""
-                                                            class="right" style={{ color: "#fff",fontWeight:"900"}}>
-                                                            hello
-                                                        </uni-view>
-                                                    </uni-view>
-
-                                                    <uni-view data-v-248ca5b8="" class="layer">
-                                                        <uni-view data-v-248ca5b8="" class="title">Remarks</uni-view>
-                                                        <uni-view data-v-248ca5b8="" class="value">
-                                                            {item.remarks || item.source || '—'}
-                                                        </uni-view>
-                                                    </uni-view>
-                                                </uni-view>
-                                                
-                                            ))
-
-                                        }
+                               
                             </uni-view>
                         </uni-page-body>
                     </uni-page-wrapper>

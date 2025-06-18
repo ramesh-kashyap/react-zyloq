@@ -67,7 +67,7 @@ const Server = () => {
       TeamA: "10",
       TeamBC: "24",
       roi: "2.0% - 2.4%",
-      level: "12% / 4% / 3%",
+      level: "12% / 4% / 2%",
    },
    {
       title: "VIP 4",
@@ -86,7 +86,7 @@ const Server = () => {
     TeamA: "15",
     TeamBC: "48",
     roi: "2.6% - 3%",
-    level: "14% / 4% / 3%",
+    level: "14% / 6% / 4%",
    },
 ]);
 
@@ -232,11 +232,7 @@ const fetchvip = async () => {
                                             <uni-view data-v-35b9a113="" data-v-3dcfa33c="" class="uni-col uni-col-12" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
                                               <uni-view data-v-3dcfa33c="" class="page-title">Upgrade Level</uni-view>
                                             </uni-view>
-                                            <uni-view data-v-35b9a113="" data-v-3dcfa33c="" class="uni-col uni-col-6" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
-                                              <Link to="/notice">
-                                                <uni-view data-v-3dcfa33c="" class="set"><img data-v-53c5f33f="" src="/static/img/records.png" alt="" style={{ width: '25px', marginTop: '5px', filter: 'brightness(6) invert(0)' }} /></uni-view>
-                                              </Link>
-                                            </uni-view>
+                                         
                                           </uni-view>
                                         </uni-view>
 
@@ -285,10 +281,10 @@ const fetchvip = async () => {
                                                                <uni-text data-v-b19b400c="" className="price" style={{ display: 'flex', alignItems: 'center', gap: '5px' , marginBottom:-50}}>
   
   {/* {slide.title} */}
-  <span style={{ fontSize: '30px', lineHeight: '17px', color: 'rgb(36 33 33 / 50%)', fontWeight:700, marginBottom:10 }}>
+  <span style={{ fontSize: '21px', lineHeight: '17px', color: 'rgb(49 47 47)', fontWeight:700, marginBottom:10 }}>
     {slide.title}
   </span>
-  <img src={`/static/img/${slide.price}.png`} alt="plan" style={{ width: '120px',height:'100px', marginLeft:100 }} />
+  <img src={`/static/img/${slide.price}.png`} alt="plan" style={{ width: '113px',height:'82px', marginLeft:"114px" }} />
 </uni-text>
 
                                                             </uni-view>

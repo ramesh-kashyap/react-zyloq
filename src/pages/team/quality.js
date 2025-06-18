@@ -12,6 +12,12 @@ const Server = () => {
    const [activeTab, setActiveTab] = useState("running");
    const [servers, setQualitys] = useState([])
    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+   const [Contract, setContract] = useState([]);
+    const [incomes, setIncomes] = useState("");
+   const [error, setError] = useState("");
+      const [availbal, setAvailableBal] = useState();
+      const [vip, setVip] = useState(0);
+   
    const [slides, setSlides] = useState([
       {
          title: "VIP 1",
@@ -92,6 +98,8 @@ const Server = () => {
 
    useEffect(() => {
       fetchvip();
+      fetchcontract();
+      IncomeInfo();
    }, [])
    const handleBuyClick = async (slideData) => {
       try {
@@ -112,32 +120,46 @@ const Server = () => {
       }
    };
 
+   const fetchcontract = async () => {
+      try {
+         const response = await Api.get("/fetchcontract");
+         if (response.data && response.data.success) {
+            console.log(response.data);
+            setContract(response.data.fetchcontract?.slice(0, 10));
+         }
+      } catch (err) {
+         setError(err.response?.data?.error || "Error fetching history");
+      }
+   };
+
+
+      const IncomeInfo = async () => {
+      try {
+         const response = await Api.get("/incomeInfo");
+         if (response.data) {
+            console.log(response.data);
+            setIncomes(response.data.data);
+         }
+      } catch (error) {
+         console.error(error);
+         setError(error);
+      }
+   }
+
    const fetchvip = async () => {
       try {
-         const response = await Api.get('/fetchvip');
-         // console.log(response.data);
-         if (response.data?.success) {
-            setQualitys(response.data);
-            const serverData = response.data;
-            const updatedSlides = slides.map((slide) => {
-               const balanceOk = parseFloat(serverData.balance) >= parseFloat(slide.effectiveAmount);
-               const directOk = parseInt(serverData.directmembers) >= parseInt(slide.TeamA);
-               const teamB = parseInt(serverData.sponsor?.teamBCount || 0);
-               const teamC = parseInt(serverData.sponsor?.teamCCount || 0);
-               const totalTeamBC = teamB + teamC;
-               const teamOk = totalTeamBC >= parseInt(slide.TeamBC);
-               const isPurchased = balanceOk && directOk && teamOk;
-
-               return {
-                  ...slide,
-                  purchased: isPurchased,
-               };
-            });
-
-            setSlides(updatedSlides);
-         } else {
-            console.error("API did not return success");
+         const response = await Api.get("/availbal");
+         if (response.data?.AvailBalance !== undefined) {
+            setAvailableBal(response.data.AvailBalance);
          }
+
+         const response_vip = await Api.get("/get_vip");
+         
+         if (response_vip.data.success) {
+            setVip(response_vip.data.vip);
+         }
+
+
       } catch (error) {
          console.error("Error fetching servers:", error);
       }
@@ -233,11 +255,11 @@ const Server = () => {
 
    const greenDotStyle = {
       width: '8px',
-      height: '8px',
-      backgroundColor: 'rgb(225 194 87)',
-      borderRadius: '50%',
-      display: 'inline-block',
-      marginRight: '6px',
+    height: '8px',
+    backgroundColor: '#569d35',
+    borderRadius: '50%',
+    display: 'inline-block',
+    marginRight: '6px',
    };
 
    const dividerStyle2 = {
@@ -254,7 +276,7 @@ const Server = () => {
 
    const labelStyle2 = {
       marginBottom: '4px',
-      fontSize:'13px'
+      fontSize: '13px'
    };
 
    const valueStyle2 = {
@@ -265,43 +287,118 @@ const Server = () => {
 
    const incomeStyle = {
       fontWeight: 'bold',
-      fontSize: '15px',
-      color: 'rgb(225 194 87)',
+    fontSize: '15px',
+    color: '#569d35',
+    textAlign:'center'
    };
 
-     const wrapperStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-   //  backgroundColor: '#121212',
-    padding: '6px 4px',
-    fontFamily: 'Arial, sans-serif',
-    color: '#fff',
-  };
+   const wrapperStyle = {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      //  backgroundColor: '#121212',
+      padding: '6px 4px',
+      fontFamily: 'Arial, sans-serif',
+      color: '#fff',
+   };
 
-  const titleStyle = {
-    fontSize: '15px',
-    fontWeight: 'bold',
-  };
+   const titleStyle = {
+      fontSize: '15px',
+      fontWeight: 'bold',
+   };
 
-  const buttonStyle = {
-    border: '1px solid #333',
-    borderRadius: '20px',
-    padding: '6px 14px',
-    fontSize: '14px',
-    backgroundColor: 'transparent',
-    color: '#fff',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-  };
+   const buttonStyle = {
+      border: '1px solid #333',
+      borderRadius: '20px',
+      padding: '6px 14px',
+      fontSize: '14px',
+      backgroundColor: 'transparent',
+      color: '#fff',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+   };
 
-  const arrowStyle = {
-    marginLeft: '6px',
-    fontSize: '16px',
-  };
+   const arrowStyle = {
+      marginLeft: '6px',
+      fontSize: '16px',
+   };
 
 
+
+   const [pair, setPair] = useState(null);
+   
+     // List of crypto pairs and icons
+     const pairs = [
+       { name: 'ETH-BNB', icons: ['eth.png', 'bnb.png'] },
+       { name: 'BTC-USDT', icons: ['btc.png', 'usdt.png'] },
+       { name: 'ADA-ETH', icons: ['ada.png', 'eth.png'] },
+       { name: 'SOL-DOT', icons: ['solana.png', 'dot.png'] },
+       { name: 'XRP-BNB', icons: ['xrp.png', 'bnb.png'] },
+     ];
+   
+     useEffect(() => {
+       const random = pairs[Math.floor(Math.random() * pairs.length)];
+       setPair(random);
+     }, []);
+   
+     const cardStyleNew = {
+       background: 'linear-gradient(135deg, rgb(40 40 43), rgb(27, 27, 30))',
+       borderRadius: '16px',
+       padding: '20px',
+       color: '#fff',
+       fontFamily: 'Arial, sans-serif',
+       maxWidth: '400px',
+       border: '1px solid #2a2a2a',
+       boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+       marginTop:'10px'
+     };
+   
+     const headerStyle = {
+       display: 'flex',
+       alignItems: 'center',
+       marginBottom: '10px',
+       fontSize: '16px',
+       fontWeight: 'bold',
+     };
+   
+     const coinImgStyle = {
+       width: '24px',
+       height: '24px',
+       borderRadius: '50%',
+       marginRight: '-8px',
+       border: '2px solid #121212',
+       backgroundColor: '#000',
+     };
+   
+     const chartWrapperStyle = {
+       width: '100%',
+       height: '100px',
+       marginTop: '12px',
+       marginBottom: '20px',
+     };
+   
+     const infoRowStyle = {
+       display: 'flex',
+       justifyContent: 'space-between',
+       fontSize: '14px',
+       color: '#aaa',
+     };
+   
+     const infoValueStyle = {
+       color: '#fff',
+       fontSize: '14px',
+       fontWeight: 'bold',
+     };
+   
+     const vipRateMap = {
+      1: '1.3% - 1.5%',
+      2: '1.6% - 1.8%',
+      3: '2.0% - 2.4%',
+      4: '2.6% - 3%',
+      };
+const vipRateRange = vipRateMap[vip] || '0';
+  if (!pair) return null;
 
    return (
       <div class="uni-body pages-server-server">
@@ -346,15 +443,15 @@ const Server = () => {
                            alt="G0"
                            style={iconStyle}
                         /> */}
-                                 <span style={valueStyle}>VIP1</span>
+                                 <span style={valueStyle}>VIP{vip}</span>
                               </div>
                               <div>
                                  <span style={labelStyle}>Wallet Balance</span><br />
-                                 <span style={valueStyle}>5.15</span>
+                                 <span style={valueStyle}>$ {availbal ? availbal : "0.00"}</span>
                               </div>
                               <div>
-                                 <span style={labelStyle}>Cumulative Income</span><br />
-                                 <span style={valueStyle}>5.15</span>
+                                 <span style={labelStyle}>Total Income</span><br />
+                                 <span style={valueStyle}>${incomes.totalIncome ? incomes.totalIncome : 0}</span>
                               </div>
                            </div>
 
@@ -363,61 +460,103 @@ const Server = () => {
                            <div style={rowStyle}>
                               <div>
                                  <span style={labelStyle}>Today's Earnings</span><br />
-                                 <span style={{ ...valueStyle, color: '#00ff99' }}>0</span>
+                                 <span style={{ ...valueStyle, color: '#00ff99' }}>${incomes.todayTotalIncome ? incomes.todayTotalIncome : 0}</span>
                               </div>
                               <div>
-                                 <span style={labelStyle}>Cumulative Income</span><br />
-                                 <span style={valueStyle}>5.15</span>
+                                 <span style={labelStyle}>Quantify Income</span><br />
+                                 <span style={valueStyle}>${incomes.tradingIncome ? incomes.tradingIncome : 0}</span>
                               </div>
                               <div>
                                  <span style={labelStyle}>Team Benefits</span><br />
-                                 <span style={valueStyle}>0</span>
+                                 <span style={valueStyle}>${incomes.teamIncome ? incomes.teamIncome : 0}</span>
                               </div>
                            </div>
                         </div>
 
 
                         <SmartTradeQuantization />
-                        <PairCard />
+                       
 
+                       <div style={cardStyleNew}>
+                              <div style={headerStyle}>
+                              <img
+                                 src={`/static/coin/${pair.icons[0]}`}
+                                 alt={pair.name.split('-')[0]}
+                                 style={coinImgStyle}
+                              />
+                              <img
+                                 src={`/static/coin/${pair.icons[1]}`}
+                                 alt={pair.name.split('-')[1]}
+                                 style={{ ...coinImgStyle, marginLeft: '8px' }}
+                              />
+                              <span style={{ marginLeft: '12px' }}>{pair.name}</span>
+                              </div>
 
-                  <div style={wrapperStyle}>
-                        <div style={titleStyle}>My Quantify</div>
-                        <button style={buttonStyle}>
-                           <Link to="/bill" style={{color:'#fff',textDecoration:'none'}}>
-                        Bill List <span style={arrowStyle}>›</span>
-                        </Link>
-                        </button>
-                     </div>
+                              <div style={chartWrapperStyle}>
+                              <svg width="100%" height="100%">
+                                 <path
+                                    d="M0,90 Q20,40 40,60 Q60,80 80,65 Q100,70 120,60 Q140,75 160,55 Q180,65 200,55 Q220,75 240,65 Q260,85 280,75 Q300,70 320,60"
+                                    stroke="#FFD429"
+                                    strokeWidth="2"
+                                    fill="none"
+                                 />
+                              </svg>
+                              </div>
 
-
-                        <div style={cardStyle2}>
-                           {/* Top Row */}
-                           <div style={topRowStyle}>
-                              <span>04/04/2025 01:22:20</span>
-                              <span>
-                                 <span style={greenDotStyle}></span>Completed
-                              </span>
+                              <div style={infoRowStyle}>
+                              <div>
+                                 <div>Transaction Amount</div>
+                                 <div style={infoValueStyle}>{availbal ? availbal : "0.00"} USDT</div>
+                              </div>
+                              <div style={{ textAlign: 'right' }}>
+                                 <div>Rate Of Return</div>
+                                 <div style={infoValueStyle}>{vipRateRange}</div>
+                              </div>
+                              </div>
                            </div>
 
-                           <div style={dividerStyle2}></div>
 
-                           {/* Detail Grid */}
-                           <div style={gridStyle}>
-                              <div>
-                                 <div style={labelStyle2}>Trading Pair</div>
-                                 <div style={valueStyle2}>ETH-BNB</div>
-                              </div>
-                              <div>
-                                 <div style={labelStyle2}>Transaction Amount</div>
-                                 <div style={valueStyle2}>198.09 USDT</div>
-                              </div>
-                              <div>
-                                 <div style={labelStyle2}>Amount Of Income</div>
-                                 <div style={incomeStyle}>2.72 USDT</div>
-                              </div>
-                           </div>
+                        <div style={wrapperStyle}>
+                           <div style={titleStyle}>My Quantify</div>
+                           <button style={buttonStyle}>
+                              <Link to="/bill" style={{ color: '#fff', textDecoration: 'none' }}>
+                                 Bill List <span style={arrowStyle}>›</span>
+                              </Link>
+                           </button>
                         </div>
+
+
+                        {Contract.map((item, index) => (
+                           <div style={cardStyle2}>
+                              {/* Top Row */}
+                              <div style={topRowStyle}>
+                                 <span><span>{new Date(item.created_at).toLocaleString()}</span>
+                                 </span>
+                                 <span>
+                                    <span style={greenDotStyle}></span>{item.c_status === -1 ? 'Completed' : item.c_status === 1 ? 'Completed' : 'Unknown'}
+                                 </span>
+                              </div>
+
+                              <div style={dividerStyle2}></div>
+
+                              {/* Detail Grid */}
+                              <div style={gridStyle}>
+                                 <div>
+                                    <div style={labelStyle2}>Trading Pair</div>
+                                    <div style={valueStyle2}>USDT-{item.c_name.toUpperCase()}</div>
+                                 </div>
+                                 <div>
+                                    <div style={labelStyle2}>Position</div>
+                                    <div style={valueStyle2}>{item.trade}</div>
+                                 </div>
+                                 <div>
+                                    <div style={labelStyle2}>Amount Of Income</div>
+                                    <div style={incomeStyle}>${item.profit}</div>
+                                 </div>
+                              </div>
+                           </div>
+                        ))
+                        }
                      </uni-view>
                   </uni-page-body>
                </uni-page-wrapper>

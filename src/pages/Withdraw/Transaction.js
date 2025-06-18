@@ -46,7 +46,7 @@ const Transaction = () => {
       };
 
     const getAmountColor = (type) => {
-        return type === 'buyfund' || type === 'income' ? '#ffc600' : 'rgb(255, 61, 61)';
+        return type === 'buyfund' || type === 'income' ? '#569d35' : 'rgb(255, 61, 61)';
     };
 
     const getAmountPrefix = (type) => {

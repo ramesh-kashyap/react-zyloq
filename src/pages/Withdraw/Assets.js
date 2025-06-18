@@ -11,7 +11,6 @@ const Assets = () => {
     useEffect(() => {
         fetchUsers();
         withavail();
-        IncomeInfo();
     }, []);
 
     const fetchUsers = async () => {
@@ -42,21 +41,9 @@ const Assets = () => {
           }
        }
 
-          const IncomeInfo = async () => {
-          try {
-             const response = await Api.get("/incomeInfo");
-             if (response.data) {
-                console.log(response.data);
-             }
-          } catch (error) {
-             console.error(error);
-             setError(error);
-          }
-       }
-
 
        const getAmountColor = (type) => {
-        return type === 'buyfund' || type === 'income' ? '#ffc600' : 'rgb(255, 61, 61)';
+        return type === 'buyfund' || type === 'income' ? '#569d35' : 'rgb(255, 61, 61)';
     };
 
     const getAmountPrefix = (type) => {

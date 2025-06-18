@@ -102,7 +102,6 @@ function AppContent() {
         <div className="uni-body pages-index-index">
             <div className="uni-app uni-app--showtabbar uni-app--maxwidth">
                 <div className="ellipse" style={{ height: 60 }}></div>
-
                 <Routes>
                     {/* Public Routes */}
                     <Route path="/" element={<PublicRoute><Login /></PublicRoute>} />

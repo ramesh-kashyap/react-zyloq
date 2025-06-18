@@ -33,7 +33,16 @@ const UserInfo = () => {
         name,
       });
       if (response.data.success) {
-        toast.success(response.data.message);
+        toast.success(response.data.message, {
+          className: 'custom-toast',
+         icon: '✔️',
+          position: 'top-center',
+          autoClose: 90000,
+          hideProgressBar: true,
+          closeButton: false,
+          draggable: false,
+          pauseOnHover: false
+        });
       } else {
         toast.error("Failed to update user info");
       }

@@ -9413,8 +9413,8 @@ body {
 
 .ava img[data-v-06ae08d2] {
     /* border-radius: 50%; */
-    width: 118px;
-    height: 33px
+    width: 86px;
+    height: 32px;
 }
 
 .top-text[data-v-06ae08d2] {
@@ -43497,11 +43497,11 @@ body {
 
 .rate[data-v-0f43bbff] {
     margin-right: 10px;
-    font-family: Montserrat;
+    font-family: sans-serif;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 21px;
-    color: #ffc600
+    color: #ffffff;
 }
 
 .global-box[data-v-0f43bbff] {
@@ -76672,7 +76672,7 @@ body {
 }
 
 .right .value[data-v-10f20c32] {
-    color: #ffc600;
+    color: #569d35;
     font-weight: 500;
     font-size: 16px;
     line-height: 20px;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+ 
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import Api from "../../Requests/Api";
 import { Toaster, toast } from 'react-hot-toast';
@@ -9,22 +9,22 @@ const Notice = () => {
         useEffect(() => {
             fetchcontract();
         }, []);
-    
+   
         const fetchcontract = async () => {
             try {
                 const response = await Api.get("/fetchcontract");
                 if (response.data && response.data.success) {
                     console.log(response.data);
                     setContract(response.data.fetchcontract);
-                } 
+                }
             } catch (err) {
                 setError(err.response?.data?.error || "Error fetching history");
             }
         };
-
-          
-//   tramsactoion css 
-
+ 
+         
+//   tramsactoion css
+ 
  const cardStyle2 = {
     background: 'linear-gradient(135deg, rgb(78, 78, 81), rgb(27, 27, 30))',
     borderRadius: '12px',
@@ -37,7 +37,7 @@ const Notice = () => {
     marginTop:'10px',
      border:'1px solid #5c5757'
   };
-
+ 
   const topRowStyle = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -46,45 +46,46 @@ const Notice = () => {
     color: '#aaa',
     marginBottom: '10px',
   };
-
+ 
   const greenDotStyle = {
     width: '8px',
     height: '8px',
-    backgroundColor: 'rgb(225 194 87)',
+    backgroundColor: '#569d35',
     borderRadius: '50%',
     display: 'inline-block',
     marginRight: '6px',
   };
-
+ 
   const dividerStyle2 = {
     borderTop: '1px solid rgba(255, 255, 255, 0.08)',
     margin: '12px 0',
   };
-
+ 
   const gridStyle = {
     display: 'flex',
     justifyContent: 'space-between',
     fontSize: '14px',
     color: '#aaa',
   };
-
+ 
   const labelStyle2 = {
     marginBottom: '4px',
   };
-
+ 
   const valueStyle2 = {
     fontWeight: 'bold',
     fontSize: '15px',
     color: '#fff',
   };
-
+ 
   const incomeStyle = {
     fontWeight: 'bold',
     fontSize: '15px',
-    color: 'rgb(225 194 87)',
+    color: '#569d35',
+    textAlign:'center'
   };
      
-
+ 
     return (
         <div class="uni-body pages-index-message">
             <uni-app class="uni-app--maxwidth">
@@ -115,12 +116,12 @@ const Notice = () => {
                               <span><span>{new Date(item.created_at).toLocaleString()}</span>
 </span>
                               <span>
-                                 <span style={greenDotStyle}></span>{item.c_status === -1 ? 'Pending' : item.c_status === 1 ? 'Complete' : 'Unknown'}
+                                 <span style={greenDotStyle}></span>{item.c_status === -1 ? 'Completed' : item.c_status === 1 ? 'Completed' : 'Unknown'}
                               </span>
                               </div>
-
+ 
                               <div style={dividerStyle2}></div>
-
+ 
                               {/* Detail Grid */}
                               <div style={gridStyle}>
                               <div>
@@ -128,18 +129,18 @@ const Notice = () => {
                                  <div style={valueStyle2}>USDT-{item.c_name.toUpperCase()}</div>
                               </div>
                               <div>
-                                 <div style={labelStyle2}>Transaction Amount</div>
-                                 <div style={valueStyle2}>${item.c_buy}</div>
+                                 <div style={labelStyle2}>Position</div>
+                                 <div style={valueStyle2}>{item.trade}</div>
                               </div>
                               <div>
                                  <div style={labelStyle2}>Amount Of Income</div>
-                                 <div style={incomeStyle}>{item.profit}</div>
+                                 <div style={incomeStyle}>${item.profit}</div>
                               </div>
                               </div>
                            </div>
                            ))
                                         }
-
+ 
                                 {/* {Contract.map((item, index) => (
                                                 <uni-view data-v-248ca5b8="" class="item" >
                                                     <uni-view data-v-248ca5b8="" class="first">
@@ -151,7 +152,7 @@ const Notice = () => {
                                                             Sell :{item.c_sell}
                                                         </uni-view>
                                                     </uni-view>
-
+ 
                                                     <uni-view data-v-248ca5b8="" class="layer">
                                                         <uni-view data-v-248ca5b8="" class="title">Profit</uni-view>
                                                         <uni-view data-v-248ca5b8="" class="value" style={{ color: "#ffc600",fontWeight:"900"}}>
@@ -159,22 +160,19 @@ const Notice = () => {
                                                         </uni-view>
                                                     </uni-view>
                                                 </uni-view>
-                                                
+                                               
                                             ))
                                         } */}
                             </uni-view>
                         </uni-page-body>
                     </uni-page-wrapper>
                 </uni-page>
-
+ 
             </uni-app>
-
+ 
         </div>
     );
 };
-
+ 
 export default Notice;
-
-
-
-
+ 

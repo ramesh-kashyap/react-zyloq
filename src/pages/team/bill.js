@@ -4,6 +4,8 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import Api from "../../Requests/Api";
 import { Toaster, toast } from 'react-hot-toast';
 const Notice = () => {
+      const navigate = useNavigate();
+
     const [Contract, setContract] = useState([]);
         const [error, setError] = useState("");
         useEffect(() => {
@@ -97,11 +99,11 @@ const Notice = () => {
                                 <uni-view data-v-c62a6474="" class="top-box">
                                     <uni-view data-v-636c600c="" data-v-c62a6474="" class="uni-row" style={{marginLeft: '0px',marginRight: '0px'}}>
                                         <uni-view data-v-35b9a113="" data-v-c62a6474="" class="uni-col uni-col-6" style={{paddingLeft: '0px', paddingRight: '0px'}}>
-                                            <Link to="/quality">
+                                          <div onClick={() => navigate(-1)} style={{ cursor: 'pointer' }}>
                                                 <uni-view data-v-c62a6474="" class="back">
                                                     <img data-v-c62a6474="" src="/static/img/back.png"  alt="" style={{width: '35px',filter: 'brightness(1) invert(0)'}}/>
                                                 </uni-view>
-                                            </Link>
+                                           </div>
                                         </uni-view>
                                         <uni-view data-v-35b9a113="" data-v-c62a6474="" class="uni-col uni-col-12" style={{paddingLeft: '0px',paddingRight: '0px'}}>
                                             <uni-view data-v-c62a6474="" class="page-title">Trading History</uni-view>

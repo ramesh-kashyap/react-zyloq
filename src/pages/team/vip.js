@@ -281,7 +281,7 @@ const fetchvip = async () => {
                                                                <uni-text data-v-b19b400c="" className="price" style={{ display: 'flex', alignItems: 'center', gap: '5px' , marginBottom:-50}}>
   
   {/* {slide.title} */}
-  <span style={{ fontSize: '21px', lineHeight: '17px', color: 'rgb(49 47 47)', fontWeight:700, marginBottom:10 }}>
+  <span style={{ fontSize: '21px', lineHeight: '17px', color: 'rgb(255 255 255)', fontWeight:700, marginBottom:10 }}>
     {slide.title}
   </span>
   <img src={`/static/img/${slide.price}.png`} alt="plan" style={{ width: '113px',height:'82px', marginLeft:"114px" }} />
@@ -292,7 +292,7 @@ const fetchvip = async () => {
                                                             <uni-view
                                                                data-v-b19b400c="" class="card-body">
                                                                <uni-view data-v-b19b400c="" class="benefit-item">
-                                                                  <img data-v-b19b400c="" src="/static/img/153.png" alt="" style={{ width: '20px', marginRight: '5px',filter:'brightness(0.66) invert(0)' }} />
+                                                                  <img data-v-b19b400c="" src={`/static/img/${slide.purchased ? 'icons8-unlock-64' : 'icons8-lock-96'}.png`}  alt={slide.purchased ? 'Unlocked' : 'Locked'} style={{ width: '20px', marginRight: '5px',filter:'brightness(0.66) invert(0)' }} />
                                                                   <uni-text
                                                                      data-v-b19b400c=""
                                                                      class="benefit-text"><span>{slide.text}</span>

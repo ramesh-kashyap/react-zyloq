@@ -11,6 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useTranslation } from 'react-i18next';
 import FeatureGrid from "./FeatureGrid";
 import WelcomeMarquee from "./WelcomeMarquee";
+import WelcomePopup from "./WelcomePopup";
 
 const symbols = ["dogeusdt", "ethusdt", "dotusdt", "nearusdt"];
 
@@ -19,6 +20,7 @@ const Dashboard = () => {
    const [selectedSymbol, setSelectedSymbol] = useState(null);
    const navigate = useNavigate();
    const [user, setUser] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
    // const [isOpen, setIsOpen] = useState(false); // Modal visibility state
    // const toggleDropdown = () => setIsOpen(!isOpen);
@@ -26,6 +28,19 @@ const Dashboard = () => {
    const [cryptoData, setCryptoData] = useState({});
    const [binanceSymbols, setBinanceSymbols] = useState([]);
    const [showAll, setShowAll] = useState(false); // toggle state
+
+     useEffect(() => {
+    const alreadyClosed = sessionStorage.getItem('welcome_popup_closed');
+    if (!alreadyClosed) {
+      setShowPopup(true);
+    }
+  }, []);
+
+
+    const handleClose = () => {
+    sessionStorage.setItem('welcome_popup_closed', 'true');
+    setShowPopup(false);
+  };
 
 
 
@@ -163,6 +178,11 @@ const Dashboard = () => {
    return (
 
       <div class="uni-body pages-index-index">
+
+          <div>
+            {showPopup && <WelcomePopup onClose={() => handleClose()} />}
+         </div>
+
          <uni-app class="uni-app--showtabbar uni-app--maxwidth">
             <uni-page
                data-page="pages/index/index"> <uni-page-wrapper><uni-page-body>

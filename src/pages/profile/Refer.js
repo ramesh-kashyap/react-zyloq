@@ -11,7 +11,8 @@ const Refer = () => {
   const [serR, setServerR] = useState(null);
   const [incomeData, setIncome] = useState([]);
   const [error, setError] = useState("");
- 
+   const navigate = useNavigate();
+
   const fetchUsers = async () => {
     try {
       const response = await Api.get("/getinvate"); 
@@ -84,9 +85,9 @@ const Refer = () => {
                 <uni-view data-v-0f43bbff="" class="top-box">
                   <uni-view data-v-636c600c="" data-v-0f43bbff="" class="uni-row" style={{ marginLeft: '0px', marginRight: '0px' }}>
                     <uni-view data-v-35b9a113="" data-v-0f43bbff="" class="uni-col uni-col-6" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
-                      <Link to="/dashboard">
+                     <div onClick={() => navigate(-1)} style={{ cursor: 'pointer' }}>
                         <uni-view data-v-0f43bbff="" class="back"><img data-v-0f43bbff="" src="/static/img/back.png" alt="" style={{ width: '35px',filter:'brightness(1) invert(0)' }} /></uni-view>
-                      </Link>
+                       </div>
                     </uni-view>
                     <uni-view data-v-35b9a113="" data-v-0f43bbff="" class="uni-col uni-col-12" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
                       <uni-view data-v-0f43bbff="" class="page-title">Invite</uni-view>

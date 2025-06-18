@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Import Link for navigation
 import Api from '../../Requests/Api';
 import MyIncomeCard from './MyIncomeCard';
+import TransactionCard from './TransactionCard';
 
 const Assets = () => {
     const [transactions, setTransactions] = useState([]);
@@ -56,6 +57,16 @@ const Assets = () => {
     const topTransactions = transactions.slice(0, 8); // top 5 only
 
 
+    const formatUTCDate = (dateStr) => {
+        const d = new Date(dateStr);
+        const day = String(d.getUTCDate()).padStart(2, '0');
+        const month = String(d.getUTCMonth() + 1).padStart(2, '0'); // Months start at 0
+        const year = d.getUTCFullYear();
+        const hours = String(d.getUTCHours()).padStart(2, '0');
+        const minutes = String(d.getUTCMinutes()).padStart(2, '0');
+        const seconds = String(d.getUTCSeconds()).padStart(2, '0');
+        return `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
+        };
     return (
         <div class="uni-body pages-assets-assets">
             <uni-app class="uni-app--showtabbar uni-app--maxwidth">
@@ -113,27 +124,20 @@ const Assets = () => {
                                         
                                         <Link to="/transaction"   style={{ textDecoration: 'none', color: '#fff' }}><p>View all</p></Link>
                                     </uni-view></uni-view>
+                                    <br></br>
                                 {topTransactions.map((item, index) => (
-                                                <uni-view data-v-248ca5b8=""  class="item" key={index} >
-                                                    <uni-view data-v-248ca5b8=""  class="first">
-                                                        <uni-view data-v-248ca5b8=""  class="left">
-                                                            {new Date(item.created_at).toLocaleString()}
-                                                        </uni-view>
-                                                        <uni-view data-v-248ca5b8=""
-                                                             class="right"style={{ color: getAmountColor(item.type),fontWeight:"900" }}>
-                                                            {getAmountPrefix(item.type)}$ {getAmount(item.type, item)}
-                                                        </uni-view>
-                                                    </uni-view>
 
-                                                    <uni-view  data-v-248ca5b8=""  class="layer">
-                                                        <uni-view data-v-248ca5b8=""  class="title">Remarks</uni-view>
-                                                        <uni-view data-v-248ca5b8=""  class="value">
-                                                              {item.remarks || item.source || '—'}
-                                                        </uni-view>
-                                                    </uni-view>
-                                                </uni-view>
+                                     <>
+                                    <TransactionCard
+                                            remarks={item.remarks || item.source || '—'}
+                                            amount={getAmount(item.type, item)}
+                                            date={formatUTCDate(item.created_at)} /></>
+
+                                              
                                                 
                                             ))
+
+
                                    
                                 }
                                 

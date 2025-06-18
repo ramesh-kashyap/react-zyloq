@@ -7849,7 +7849,7 @@ body {
 }
 
 .balance-num[data-v-248ca5b8] {
-    font-family: Montserrat;
+    font-family: sans-serif;
     font-weight: 800;
     font-size: 32px;
     color:#000;
@@ -9382,7 +9382,7 @@ body {
     padding: 15px;
     font-size: 14px;
     line-height: 24px;
-    font-family: Raleway;
+    font-family: sans-serif;
     color: #fff;
     background: #0f0e11;
 }
@@ -11632,7 +11632,7 @@ body {
 .card-title[data-v-b19b400c] {
     font-size: 16px;
     line-height: 19px;
-    color:#000;
+    color: #ffffff;
 }
 
 .title[data-v-b19b400c] {
@@ -28500,7 +28500,7 @@ body {
     font-size: 30px;
     line-height: 45px;
     font-weight: 600;
-    font-family: Montserrat;
+    font-family: sans-serif;
     color: #222020;
 }
 
@@ -37630,8 +37630,10 @@ body {
     width: 100%;
     display: flex;
     align-items: center;
-    background: linear-gradient(#FFD429, rgb(217, 154, 40));
     border-radius:20px;
+    border: 1px solid rgb(79, 88, 90);
+    cursor: pointer;
+    background: linear-gradient(135deg, rgb(78, 78, 81), rgb(27, 27, 30));
 }
 
 .left[data-v-b19b400c] {
@@ -37684,7 +37686,7 @@ body {
 
 .benefit-text[data-v-b19b400c] {
     font-size: 14px;
-    color: #000;
+    color: #ffffff;
     font-family: Montserrat
 }
 
@@ -62863,7 +62865,7 @@ body {
 }
 
 .balance-num[data-v-06ae08d2] {
-    font-family: Montserrat;
+    font-family: sans-serif;
     font-weight: 800;
     font-size: 32px;
     line-height: 40px;

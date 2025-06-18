@@ -32,9 +32,9 @@ const Whistory = () => {
         fetchWithdraws();
     }, []);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    // if (loading) {
+    //     return <div>Loading...</div>;
+    // }
     const backClick = () => {
         navigate(-1); // 👈 Go back to the previous page in history
     };

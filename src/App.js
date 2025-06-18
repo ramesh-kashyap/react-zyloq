@@ -16,6 +16,8 @@ import Language from "./components/Langauge";
 import Dashboard from "./pages/home/Dashboard";
 import Notice from "./pages/home/Notice";
 import MissionCenter from "./pages/home/MissionCenter";
+import Longterm from "./pages/home/Longterm";
+
 import Faq from "./pages/home/Faq";
 import TradingChart from "./pages/home/TradingChart";
 import Smartrade from "./pages/home/Smartrade";
@@ -114,7 +116,7 @@ function AppContent() {
                     <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                     <Route path="/notice" element={<ProtectedRoute><Notice /></ProtectedRoute>} />
                     <Route path="/MissionCenter" element={<ProtectedRoute><MissionCenter /></ProtectedRoute>} />
-                    
+                    <Route path="/longterm" element={<ProtectedRoute><Longterm/></ProtectedRoute>}/>
                     <Route path="/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
                     <Route path="/faq" element={<ProtectedRoute><Faq /></ProtectedRoute>} />
                     <Route path="/change-password" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />

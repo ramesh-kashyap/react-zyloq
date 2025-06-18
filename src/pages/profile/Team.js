@@ -138,7 +138,7 @@ const Team = () => {
   const m1 =income?.data?.gen_team1total || 0;
   const m2 = income?.data?.gen_team2total || 0;
   const m3 = income?.data?.gen_team3total || 0;
-  const total = m1 + m2 + m3 || 1; // prevent division by zero
+  const total = m1 + m2 + m3 || 0; // prevent division by zero
 
   const getArc = (start, percent) => {
     const radius = 60;

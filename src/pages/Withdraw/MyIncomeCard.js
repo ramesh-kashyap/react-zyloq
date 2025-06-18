@@ -70,7 +70,7 @@ const MyIncomeCard = () => {
     <div style={cardStyle}>
       <div style={headerStyle}>
         <span>My Income</span>
-        <span style={{ color: 'rgb(206 171 53)', fontSize: '18px' }}>↗</span>
+        <span onClick={() => navigate('/transaction')}  style={{ color: 'rgb(206 171 53)', fontSize: '18px',cursor:'pointer' }}>↗</span>
       </div>
       <div style={sectionStyle}>
         <div>

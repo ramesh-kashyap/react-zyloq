@@ -3,26 +3,44 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import Api from "../../Requests/Api";
 import { Toaster, toast } from 'react-hot-toast';
-const Notice = () => {
-    const [Notice, setNotices] = useState([]);
+const CheckUsers = () => {
+     const navigate = useNavigate();
+    const [Users, setUsers] = useState(0);
     const [error, setError] = useState("");
+    const [claimedTasks, setClaimedTasks] = useState([]);
     useEffect(() => {
-        fetchUsers();
+        fetchClaimedTasks();
+        checkUsers();        
     }, []);
+    const checkUsers = async () => {
+    try {
+        const response = await Api.get("/checkusers");
+        setUsers(parseInt(response.data?.countSponor || 0)); // 💡 ensure it's a number
+    } catch (err) {
+        setError(err.response?.data?.error || "Error fetching history");
+    }
+};
 
-    const fetchUsers = async () => {
+    
+       const fetchClaimedTasks = async () => {
+    try {
+        const response = await Api.get("/checkClaimed");
+        const claimed = response.data?.claimed || [];
+        const claimedRewards = claimed.map(task => task.comm); // ✅ extract only comm
+        setClaimedTasks(claimedRewards);
+    } catch (err) {
+        console.error("Failed to fetch claimed tasks", err);
+    }
+};
+
+
+    const handleClaim = async (reward) => {
         try {
-            const response = await Api.get("/fetchnotice");
-            if (response.data && response.data.success) {
-                console.log(response.data);
-                setNotices(response.data.notices);
-            } else {
-                setNotices([]);
-            }
-
-            console.log("Fetched:", response.data);
+            await Api.post('/claimTask', { taskReward: reward });  // ✅ sending reward
+            toast.success("Task claimed successfully!");
+            setClaimedTasks(prev => [...prev, reward]);  // ✅ track by reward
         } catch (err) {
-            setError(err.response?.data?.error || "Error fetching history");
+            toast.error(err.response?.data?.message || "Claim failed");
         }
     };
 
@@ -88,23 +106,7 @@ const Notice = () => {
 
 
 
-    const tasks = [
-        {
-            title: 'Inviting 1 valid user',
-            description:
-                'You invite 1 person, and they deposit $100 into their Zylo AI account.You receive $6 as a direct bonus',
-            reward: 6,
-            progress: 0,
-            total: 1,
-        },
-        {
-            title: 'Inviting 2 valid user',
-            description:
-                'You invite 2 person, and they deposit $100 into their Zylo AI account.You receive $15 as a direct bonus',
-            reward: 15,
-            progress: 0,
-            total: 2,
-        },
+    const rawTasks = [
         {
             title: 'Inviting 3 valid user',
             description:
@@ -113,7 +115,85 @@ const Notice = () => {
             progress: 0,
             total: 3,
         },
+        {
+            title: 'Inviting 6 valid user',
+            description:
+                'You invite 6 person, and they deposit $100 into their Zylo AI account.You receive $60 as a direct bonus',
+            reward: 60,
+            progress: 0,
+            total: 6,
+        },
+        {
+            title: 'Inviting 12 valid user',
+            description:
+                'You invite 12 person, and they deposit $100 into their Zylo AI account.You receive $120 as a direct bonus',
+            reward: 120,
+            progress: 0,
+            total: 12,
+        },
+        {
+            title: 'Inviting 24 valid user',
+            description:
+                'You invite 24 person, and they deposit $100 into their Zylo AI account.You receive $240 as a direct bonus',
+            reward: 240,
+            progress: 0,
+            total: 24,
+        },
+        {
+            title: 'Inviting 48 valid user',
+            description:
+                'You invite 48 person, and they deposit $100 into their Zylo AI account.You receive $480 as a direct bonus',
+            reward: 480,
+            progress: 0,
+            total: 48,
+        },
+        {
+            title: 'Inviting 96 valid user',
+            description:
+                'You invite 96 person, and they deposit $100 into their Zylo AI account.You receive $960 as a direct bonus',
+            reward: 960,
+            progress: 0,
+            total: 96,
+        },  
     ];
+
+    let usedUsers = 0;
+
+const tasks = rawTasks.map((task) => {
+    const requiredUsers = task.total;
+    const isClaimed = claimedTasks.includes(task.reward);
+
+    let progress = 0;
+    let isCompleted = false;
+
+    if (isClaimed) {
+        // Already claimed → assume users were used
+        progress = requiredUsers;
+        isCompleted = true;
+        usedUsers += requiredUsers;
+    } else {
+        // Available users = total invited - already used in claimed tasks
+        const availableUsers = Users - usedUsers;
+
+        if (availableUsers >= requiredUsers) {
+            progress = requiredUsers;
+            isCompleted = true;
+            usedUsers += requiredUsers;
+        } else {
+            progress = Math.max(0, availableUsers);
+            isCompleted = false;
+            usedUsers += progress; // Even partial users count as attempted
+        }
+    }
+
+    return {
+        ...task,
+        progress,
+        isCompleted,
+        isClaimed,
+    };
+});
+
 
 
 
@@ -140,29 +220,39 @@ const Notice = () => {
                                         <uni-view data-v-35b9a113="" data-v-c62a6474="" class="uni-col uni-col-6" style={{ paddingLeft: '0px', paddingright: '0px' }}></uni-view>
                                     </uni-view>
                                 </uni-view>
-                                {/* <uni-view data-v-c62a6474="" class="tabs-box">
-                                    <uni-view data-v-c62a6474="" class="tab-item selected">All</uni-view>
-                                    <uni-view data-v-c62a6474="" class="tab-item">News</uni-view>
-                                    <uni-view data-v-c62a6474="" class="tab-item">Notice</uni-view>
-                                    <uni-view data-v-c62a6474="" class="tab-item">System</uni-view>
-                                    <uni-view data-v-c62a6474="" class="tab-item">Message</uni-view>
-                                </uni-view> */}
-
-                                {tasks.map((task, index) => (
+                                 <uni-view data-v-c62a6474="" class="tabs-box">
+                                    <uni-view data-v-c62a6474="" class="tab-item selected">Invitation Task</uni-view>
+                                    <uni-view data-v-c62a6474="" class="tab-item" onClick={() => navigate('/longterm')}>Long Term Mission</uni-view>
+                                </uni-view> 
+                                    {tasks.map((task, index) => (
                                     <div key={index} style={cardStyle}>
                                         <div style={headingStyle}>{task.title}</div>
                                         <div style={subTextStyle}>{task.description}</div>
-                                        <div style={rewardStyle}>Reward:  {task.reward} USDT</div>
+                                        <div style={rewardStyle}>Reward: {task.reward} USDT</div>
                                         <div style={progressBarBackground}>
                                             <div style={progressBarFill((task.progress / task.total) * 100)} />
                                         </div>
-                                        <div style={subTextStyle}>
-                                            {task.progress}/{task.total}
-                                        </div>
-                                        <button style={buttonStyle}>Proceed</button>
+                                        <div style={subTextStyle}>{task.progress}/{task.total}</div>
+
+                                        {task.isClaimed ? (
+                                            <button style={{ ...buttonStyle, backgroundColor: '#ccc0', color: '#555' }} disabled>Claimed</button>
+                                        ) : (
+                                            <button
+                                                style={{
+                                                    ...buttonStyle,
+                                                    backgroundColor: task.isCompleted ? '#F5C144' : 'transparent',
+                                                    color: task.isCompleted ? '#000' : '#F5C144',
+                                                    cursor: task.isCompleted ? 'pointer' : 'not-allowed',
+                                                    opacity: task.isCompleted ? 1 : 0.5
+                                                }}
+                                                disabled={!task.isCompleted}
+                                                onClick={() => handleClaim(task.reward)}
+                                            >
+                                                Claim
+                                            </button>
+                                        )}
                                     </div>
                                 ))}
-
                             </uni-view>
                         </uni-page-body>
                     </uni-page-wrapper>
@@ -174,7 +264,7 @@ const Notice = () => {
     );
 };
 
-export default Notice;
+export default CheckUsers;
 
 
 

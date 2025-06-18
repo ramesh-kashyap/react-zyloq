@@ -9,7 +9,7 @@ const UserProfileCard = () => {
   const [name, setName] = useState("");
   const [sponsor, setSponsor] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-
+ const [vip, setVip] = useState(0);
   const cardStyle = {
     background: "linear-gradient(#FFD429, rgb(217, 154, 40))",
     borderRadius: "16px",
@@ -109,6 +109,13 @@ const UserProfileCard = () => {
       const response = await Api.get("/user");
       console.log(response.data);
       setUserDetails(response.data);
+      
+    const response_vip = await Api.get("/get_vip");
+    
+    if (response_vip.data.success) {
+      setVip(response_vip.data.vip);
+    }
+
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -192,7 +199,7 @@ const UserProfileCard = () => {
             title="Copy Username"> <img  style={{width:'18px'}} src="/static/img/icons8-copy-48.png"/></span>
 
           <span style={{ marginLeft: "16px", ...labelStyle }}>
-            Invitation Code:
+            Current Rank :
           </span>
           {isEditing ? (
             <input
@@ -203,25 +210,9 @@ const UserProfileCard = () => {
               placeholder="Sponsor"
             />
           ) : (
-            <span style={codeStyle}>{userDetails?.sponsor}</span>
+            <span style={codeStyle}>VIP{vip}</span>
           )}
-          <span
-            
-            onClick={() => {
-              navigator.clipboard.writeText(userDetails?.sponsor || "");
-               toast.success("Invitation code copied", {
-                className: 'custom-toast',
-              icon: '✔️',
-                position: 'top-center',
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeButton: false,
-                draggable: false,
-                pauseOnHover: false
-              });
-            }}
-            title="Copy Sponsor Code"
-          > <img  style={{width:'18px'}} src="/static/img/icons8-copy-48.png"/></span>
+         
         </div>
 
         {isEditing && (

@@ -281,7 +281,7 @@ const fetchvip = async () => {
                                                                <uni-text data-v-b19b400c="" className="price" style={{ display: 'flex', alignItems: 'center', gap: '5px' , marginBottom:-50}}>
   
   {/* {slide.title} */}
-  <span style={{ fontSize: '25px', lineHeight: '17px', color: 'rgb(36 33 33 / 50%)', fontWeight:700, marginBottom:10 }}>
+  <span style={{ fontSize: '21px', lineHeight: '17px', color: 'rgb(49 47 47)', fontWeight:700, marginBottom:10 }}>
     {slide.title}
   </span>
   <img src={`/static/img/${slide.price}.png`} alt="plan" style={{ width: '113px',height:'82px', marginLeft:"114px" }} />

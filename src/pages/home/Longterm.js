@@ -102,21 +102,21 @@ const Longterm = () => {
     const vipTasks = [
         {
             title: 'Upgrade To VIP2',
-            description: 'Upgrade To VIP2 To Receive 50 USDT',
+            description: 'Upgrade To VIP2 To Receive 5 USDT',
             reward: 5,
             progress: 0,
             total: 2,
         },
         {
             title: 'Upgrade To VIP3',
-            description:'Upgrade To VIP3 To Receive 100 USDT',
+            description:'Upgrade To VIP3 To Receive 10 USDT',
             reward: 10,
             progress: 0,
             total: 3,
         },
         {
             title: 'Upgrade To VIP4',
-            description:'Upgrade To VIP4 To Receive 200 USDT',
+            description:'Upgrade To VIP4 To Receive 20 USDT',
             reward: 20,
             progress: 0,
             total: 4,

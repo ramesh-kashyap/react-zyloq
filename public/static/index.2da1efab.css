@@ -3375,12 +3375,12 @@ uni-slider .uni-slider-disabled .uni-slider-thumb {
 
 uni-swiper-item {
     display: block;
-    overflow: hidden;
-    will-change: transform;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    cursor: grab
+    /* overflow: hidden; */
+    /* will-change: transform; */
+    /* position: absolute; */
+    /* width: 100%; */
+    /* height: 67%; */
+    /* cursor: grab; */
 }
 
 uni-swiper-item[hidden] {
@@ -3400,7 +3400,7 @@ uni-swiper .uni-swiper-wrapper {
     overflow: hidden;
     position: relative;
     width: 100%;
-    height: 60%;
+    height: 39%;
     -webkit-transform: translateZ(0);
     transform: translateZ(0)
 }
@@ -3419,7 +3419,7 @@ uni-swiper .uni-swiper-slide-frame {
     top: 0;
     width: 100%;
     height: 100%;
-    will-change: transform
+    /* will-change: transform; */
 }
 
 uni-swiper .uni-swiper-dots {
@@ -11692,8 +11692,8 @@ body {
 
 .page[data-v-7542ab04] {
     padding: 15px;
-    font-size: 14px;
-    line-height: 24px;
+    /* font-size: 14px; */
+    /* line-height: 24px; */
     font-family: Raleway;
     color: #fff;
     background:#1d1b23;
@@ -43474,7 +43474,9 @@ body {
     flex-direction: column;
     background: #16151a;
     border-radius: 13px;
-    padding: 10px
+    padding: 16px;
+    border: .02rem solid hsl(0deg 0% 27.23%);
+    background: linear-gradient(180deg, #111116, #141519);
 }
 
 .layout[data-v-0f43bbff] {
